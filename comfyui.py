@@ -15,6 +15,7 @@ from cog import Path
 from node import Node
 from weights_downloader import WeightsDownloader
 from urllib.error import URLError
+from security import safe_requests
 
 
 class ComfyUI:
@@ -118,7 +119,7 @@ class ComfyUI:
                             if not os.path.exists(filename):
                                 print(f"Downloading {input_value} to {filename}")
                                 try:
-                                    response = requests.get(input_value)
+                                    response = safe_requests.get(input_value)
                                     response.raise_for_status()
                                     with open(filename, "wb") as file:
                                         file.write(response.content)
