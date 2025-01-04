@@ -11,7 +11,7 @@ MODEL_LIST_URL = "https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/mai
 
 # Function to download and parse the JSON file
 def download_model_list(url):
-    response = requests.get(url)
+    response = requests.get(url, timeout=60)
     response.raise_for_status()  # Raise an HTTPError if the HTTP request returned an unsuccessful status code
     return response.json()
 
