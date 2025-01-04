@@ -118,7 +118,7 @@ class ComfyUI:
                             if not os.path.exists(filename):
                                 print(f"Downloading {input_value} to {filename}")
                                 try:
-                                    response = requests.get(input_value)
+                                    response = requests.get(input_value, timeout=60)
                                     response.raise_for_status()
                                     with open(filename, "wb") as file:
                                         file.write(response.content)
