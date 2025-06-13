@@ -3,6 +3,8 @@ import requests
 import json
 import os
 import sys
+from security import safe_requests
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from weights_manifest import WeightsManifest
 
@@ -11,7 +13,7 @@ MODEL_LIST_URL = "https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/mai
 
 # Function to download and parse the JSON file
 def download_model_list(url):
-    response = requests.get(url)
+    response = safe_requests.get(url)
     response.raise_for_status()  # Raise an HTTPError if the HTTP request returned an unsuccessful status code
     return response.json()
 

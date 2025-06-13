@@ -9,6 +9,7 @@ import time
 
 from cog import BaseModel, Input, Path, Secret
 from huggingface_hub import hf_hub_download
+from security import safe_requests
 
 os.environ["DOWNLOAD_LATEST_WEIGHTS_MANIFEST"] = "true"
 os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
@@ -86,7 +87,7 @@ def get_filename_from_url(url, civitai_api_token: Secret = None):
             filename = get_filename_from_content_disposition(content_disposition)
         else:
             # If HEAD request fails to get filename, fall back to partial GET request
-            response = requests.get(
+            response = safe_requests.get(
                 url,
                 headers={"Range": "bytes=0-1024"},
                 stream=True,

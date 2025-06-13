@@ -8,6 +8,7 @@ import requests
 import urllib.parse
 import time
 from datetime import datetime
+from security import safe_requests
 
 
 def check_gcloud_auth():
@@ -102,7 +103,7 @@ def get_filename_from_url(url, civitai_api_token: str = None):
             content_disposition = response.headers["Content-Disposition"]
             filename = get_filename_from_content_disposition(content_disposition)
         else:
-            response = requests.get(
+            response = safe_requests.get(
                 url,
                 headers={"Range": "bytes=0-1024"},
                 stream=True,
