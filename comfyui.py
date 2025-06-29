@@ -7,7 +7,6 @@ import json
 import urllib
 import uuid
 import websocket
-import random
 import requests
 import shutil
 import custom_node_helpers as helpers
@@ -15,6 +14,7 @@ from cog import Path
 from node import Node
 from weights_downloader import WeightsDownloader
 from urllib.error import URLError
+import secrets
 
 
 class ComfyUI:
@@ -226,7 +226,7 @@ class ComfyUI:
 
     def randomise_input_seed(self, input_key, inputs):
         if input_key in inputs and isinstance(inputs[input_key], (int, float)):
-            new_seed = random.randint(0, 2**32 - 1)
+            new_seed = secrets.SystemRandom().randint(0, 2**32 - 1)
             print(f"Randomising {input_key} to {new_seed}")
             inputs[input_key] = new_seed
 
