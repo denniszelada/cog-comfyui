@@ -96,7 +96,7 @@ def get_filename_from_url(url, civitai_api_token: str = None):
         url = civitai_url_with_token(url, civitai_api_token)
 
     try:
-        response = requests.head(url, allow_redirects=True)
+        response = requests.head(url, allow_redirects=True, timeout=60)
 
         if "Content-Disposition" in response.headers:
             content_disposition = response.headers["Content-Disposition"]
@@ -107,7 +107,7 @@ def get_filename_from_url(url, civitai_api_token: str = None):
                 headers={"Range": "bytes=0-1024"},
                 stream=True,
                 allow_redirects=True,
-            )
+            timeout=60)
             if "Content-Disposition" in response.headers:
                 content_disposition = response.headers["Content-Disposition"]
                 filename = get_filename_from_content_disposition(content_disposition)
